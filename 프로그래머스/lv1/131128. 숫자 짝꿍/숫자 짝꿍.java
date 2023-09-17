@@ -25,6 +25,8 @@ class Solution {
         answer = sb.toString();
         
         if(answer.equals("")) return "-1";
+
+        //if(Integer.parseInt(answer)==0) answer = "0"; 
         else if(answer.replace("0","") == "") answer = "0";
 
         return answer; 
