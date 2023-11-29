@@ -1,81 +1,41 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+import java.io.*;
 
 public class Main {
 
-    private static final int MAX_SECOND = 60;
-    private static final int MAX_MINUTE = 60;
-    private static final int MAX_HOUR = 24;
-
-    public static class Time {
-        int hour, minute, second;
-
-        public Time(int hour, int minute, int second) {
-            this.hour = hour;
-            this.minute = minute;
-            this.second = second;
-        }
-    }
-
-    private static void getTime(String input, Time startTime, Time endTime) {
-        String[] split = input.split(" ");
-
-        startTime.hour = Integer.parseInt(split[0].split(":")[0]);
-        startTime.minute = Integer.parseInt(split[0].split(":")[1]);
-        startTime.second = Integer.parseInt(split[0].split(":")[2]);
-
-        endTime.hour = Integer.parseInt(split[1].split(":")[0]);
-        endTime.minute = Integer.parseInt(split[1].split(":")[1]);
-        endTime.second = Integer.parseInt(split[1].split(":")[2]);
-    }
-
-    private static int convertTimeToInt(Time time) {
-        return time.hour * 10000 + time.minute * 100 + time.second;
-    }
-
-    private static void incrementTime(Time time) {
-        time.second++;
-
-        if (time.second == MAX_SECOND) {
-            time.second = 0;
-            time.minute++;
-        }
-
-        if (time.minute == MAX_MINUTE) {
-            time.minute = 0;
-            time.hour++;
-        }
-
-        if (time.hour == MAX_HOUR) {
-            time.hour = 0;
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
+        int sh, sm, ss, eh, em, es, timeInt;
         for (int i = 0; i < 3; i++) {
-            String input = br.readLine();
-            Time startTime = new Time(0, 0, 0);
-            Time endTime = new Time(0, 0, 0);
-            getTime(input, startTime, endTime);
-
-            int result = 0;
-
+            int cnt = 0;
+            String[] input = br.readLine().split(" ");
+            String[] start = input[0].split(":");
+            String[] end = input[1].split(":");
+            sh = Integer.parseInt(start[0]);
+            sm = Integer.parseInt(start[1]);
+            ss = Integer.parseInt(start[2]);
+            eh = Integer.parseInt(end[0]);
+            em = Integer.parseInt(end[1]);
+            es = Integer.parseInt(end[2]);
             while (true) {
-                int start = convertTimeToInt(startTime);
-                if (start % 3 == 0) {
-                    result++;
+                timeInt = sh * 10000 + sm * 100 + ss;
+                if (timeInt % 3 == 0) cnt++;
+                if (sh == eh && sm == em && ss == es) {
+                    break;
                 }
-                if (startTime.hour == endTime.hour
-                        && startTime.minute == endTime.minute
-                        && startTime.second == endTime.second) break;
-
-                incrementTime(startTime);
+                ss++;
+                if (ss == 60) {
+                    ss = 0;
+                    sm++;
+                }
+                if (sm == 60) {
+                    sm = 0;
+                    sh++;
+                }
+                if (sh == 24) {
+                    sh = 0;
+                }
             }
-            System.out.println(result);
+            System.out.println(cnt);
         }
     }
 }
