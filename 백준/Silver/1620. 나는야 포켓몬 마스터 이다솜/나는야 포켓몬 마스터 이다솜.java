@@ -18,14 +18,8 @@ public class Main {
         }
         while (M-- > 0) {
             String str = br.readLine();
-            boolean isDigit = false;
-            for(char c : str.toCharArray()){
-                if(Character.isDigit(c)){
-                    isDigit = true;
-                    break;
-                }
-            }
-            if(isDigit){
+            char start = str.charAt(0);
+            if(start >= '0' && start <= '9'){
                 System.out.println(list.get(Integer.parseInt(str)-1));
             }else System.out.println(map.get(str));
         }
