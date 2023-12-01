@@ -4,35 +4,20 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
-
-        while(true){
-            String a = br.readLine();
-            if(a == null) break;
-            String b = br.readLine();
-
-            Map<Character, Integer> map1 = new HashMap<>();
-            Map<Character, Integer> map2 = new HashMap<>();
-
-            for(char c : a.toCharArray()){
-                map1.put(c, map1.getOrDefault(c, 0)+1);
+        StringBuilder sb = new StringBuilder();
+        String a, b;
+        while((a = br.readLine())!=null){
+            b=br.readLine();
+            int[] cntA = new int[26], cntB = new int[26];
+            for(int i=0; i<a.length(); i++) cntA[a.charAt(i)-'a']++;
+            for(int i=0; i<b.length(); i++) cntB[b.charAt(i)-'a']++;
+            for(int i=0; i<26; i++){
+                int cnt = Math.min(cntA[i], cntB[i]);
+                for(int j=0; j<cnt; j++) sb.append((char)(i+'a'));
             }
-            for(char c : b.toCharArray()){
-                map2.put(c, map2.getOrDefault(c,0)+1);
-            }
-            String ans="";
-            for(Character c : map1.keySet()){
-                int cnt=0;
-                if(map2.containsKey(c)){
-                    cnt = Math.min(map1.get(c), map2.get(c));
-                }
-                while(cnt-->0){
-                    ans+=c;
-                }
-            }
-            char[] arr = ans.toCharArray();
-            Arrays.sort(arr);
-            System.out.println(new String(arr));
+            sb.append("\n");
         }
+        System.out.println(sb);
     }
 }
 
