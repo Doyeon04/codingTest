@@ -8,15 +8,16 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        int max=0;
-        for(int i=1; i<=K; i++){
-            int n = N * i;
-            StringBuilder val = new StringBuilder();
-            while(n>0){
-                val.append(n%10);
-                n /= 10;
+        int max = 0;
+        for (int i = 1; i <= K; i++) {
+            int base = N * i;
+            int reverse = 0;
+            while (base > 0) {
+                reverse *= 10;
+                reverse += base % 10;
+                base /= 10;
             }
-            max = Math.max(max, Integer.parseInt(String.valueOf(val)));
+            max = Math.max(max, reverse);
         }
         System.out.println(max);
     }
