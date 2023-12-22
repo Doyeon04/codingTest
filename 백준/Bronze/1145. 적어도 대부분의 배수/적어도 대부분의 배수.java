@@ -10,21 +10,15 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         int num=0;
-        int min=Integer.MAX_VALUE;
         while(true){
+            int cnt=0;
             num++;
-            for(int i=0; i<3; i++){
-                for(int j=i+1; j<4; j++){
-                    for(int k=j+1; k<5; k++){
-                        if(num % arr[i] ==0 & num % arr[j] ==0 && num % arr[k]==0){
-                            min =Math.min(min, num);
-                        }
-                    }
-                }
+            for(int i=0; i<5; i++){
+                if(num>=arr[i] && num % arr[i]==0) cnt++;
             }
-            if(num==1000000) break;
+            if(cnt>2) break;
         }
-        System.out.println(min);
+        System.out.println(num);
     }
 }
 
