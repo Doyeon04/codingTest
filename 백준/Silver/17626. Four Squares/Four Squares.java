@@ -1,7 +1,4 @@
-
 import java.io.*;
-
-
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,4 +17,9 @@ public class Main {
 
     }
 }
+/*
+dp[5] 에서 dp[5-1^], dp[5-2^]중 작은 값
+dp[4] = 1, dp[1] = 1
+dp[5] = dp[1] + 1(2*2)
+ */
 
