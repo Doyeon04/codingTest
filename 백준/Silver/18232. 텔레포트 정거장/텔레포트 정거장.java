@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main{
+public class Main {
     static int n, m, s, e;
     static ArrayList<Integer>[] list;
     static boolean[] visit;
     static int ans;
+    static Queue<int[]> q = new LinkedList<>();
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -16,13 +18,13 @@ public class Main{
         st = new StringTokenizer(br.readLine());
         s = Integer.parseInt(st.nextToken());
         e = Integer.parseInt(st.nextToken());
-        list = new ArrayList[n+1];
-        for(int i=1; i<=n; i++){
+        list = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
             list[i] = new ArrayList<>();
         }
-        visit = new boolean[n+1];
+        visit = new boolean[n + 1];
 
-        for(int i=0; i<m; i++){
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
@@ -33,36 +35,32 @@ public class Main{
         System.out.println(ans);
     }
 
-    static void bfs(int v){
-        Queue<int[]> q = new LinkedList<>();
+    static void check(int x, int time) {
+        if (x >= 1 && x <= n && !visit[x]) {
+            visit[x] = true;
+            q.add(new int[]{x, time + 1});
+        }
+    }
+
+    static void bfs(int v) {
         q.offer(new int[]{v, 0});
         visit[v] = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int[] poll = q.poll();
             int x = poll[0];
             int time = poll[1];
 
-            if(x==e){
+            if (x == e) {
                 ans = time;
                 break;
             }
-            for(int next : list[x]){
-                if(!visit[next]){
-                    visit[next] = true;
-                    q.add(new int[]{next, time+1});
-                }
+            for (int next : list[x]) {
+                check(next, time);
             }
 
-            if(x+1 <= n && !visit[x+1] ){
-                q.add(new int[]{x+1, time+1});
-                visit[x+1] = true;
-            }
-
-            if(x-1 >= 1 && !visit[x-1] ){
-                q.add(new int[]{x-1, time+1});
-                visit[x-1] = true;
-            }
+            check(x + 1, time);
+            check(x - 1, time);
         }
     }
 }
