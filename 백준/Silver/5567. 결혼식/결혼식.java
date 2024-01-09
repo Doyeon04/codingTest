@@ -21,24 +21,26 @@ public class Main {
             int b = Integer.parseInt(st.nextToken());
             arr[a][b] = arr[b][a] = 1;
         }
+        visit[1] = true;
         dfs(1, 0);
-        System.out.println(ans-1);
+      
+        for(int i=2; i<=n; i++){
+            if(visit[i]) ans++;
+        }
+        System.out.println(ans);
     }
 
     static void dfs(int v, int cnt) {
-        if (visit[v] || cnt == 2) return;
+        if(cnt==2) {
+            return;
+        }
 
-        visit[v] = true;
-        ans++;
-
-        if (arr[v][1] == 1) cnt = 0; // 1번애랑 바로 친구면
-
-        for (int i = 1; i <= n; i++) {
-            if(v==i) continue;
-            if (!visit[i] && arr[v][i] == 1) {
-                dfs(i, cnt + 1);
+        for(int i=1; i<=n; i++){
+            if(arr[v][i] == 1){
+                visit[i] = true;
+                dfs(i, cnt+1); 
             }
         }
     }
-
 }
+
