@@ -16,8 +16,8 @@ public class Main {
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        visit = new boolean[n+1];
-        dist = new int[n+1];
+        visit = new boolean[n + 1];
+        dist = new int[n + 1];
         list = new ArrayList<>();
         for (int i = 0; i <= n; i++) {
             list.add(new ArrayList<>());
@@ -32,23 +32,21 @@ public class Main {
         }
 
         bfs(1);
-        
-        int max=0;
-        for (int i : dist) {
-            max = Math.max(max, i); 
-        }
-        int cnt=0;
-        int num=0; 
-        for(int i=1; i<=dist.length; i++){
-            if(dist[i] == max){
-                num = i;
-                break;
+
+        int max = 0;
+        int idx = 0;
+        for (int i = dist.length - 1; i >= 1; i--) {
+            if (max <= dist[i]) {
+                max = dist[i];
+                idx = i;
             }
         }
+        int cnt = 0;
         for (int i : dist) {
-            if(i==max) cnt++; 
+            if (i == max) cnt++;
         }
-        System.out.println(num+" "+max+" "+cnt);
+
+        System.out.println(idx + " " + max + " " + cnt);
     }
 
     static void bfs(int v) {
@@ -59,12 +57,12 @@ public class Main {
         while (!q.isEmpty()) {
             int now = q.poll();
 
-            for(int next : list.get(now)){
-                if(visit[next]) continue;
+            for (int next : list.get(now)) {
+                if (visit[next]) continue;
 
                 visit[next] = true;
                 dist[next] = dist[now] + 1;
-                q.offer(next); 
+                q.offer(next);
             }
         }
     }
