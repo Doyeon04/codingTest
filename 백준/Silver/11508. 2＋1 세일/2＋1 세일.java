@@ -17,13 +17,12 @@ public class Main {
 
 
         int sum = 0;
-        for (int i = arr.length - 1; i >= 0; i-=3) {
-            if (i - 2 >= 0) {
-                sum += arr[i] + arr[i - 1];
-            }else{
-                if(i-1 >= 0) sum += arr[i] + arr[i-1];
-                else sum += arr[i];
-            }
+        int cnt=0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+           cnt++;
+           if(cnt==3){
+               cnt=0;
+           }else sum += arr[i];
         }
         System.out.println(sum);
     }
