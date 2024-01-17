@@ -15,13 +15,13 @@ public class Main {
 
         Arrays.sort(arr);
 
-        int total=0;
+        long total=0;
         for(int i=0; i<n-1; i++){
-            int restSum=0;
+            long restSum=0;
             for(int j=i+1; j<n; j++){
                 restSum+=arr[j];
             }
-            total+=arr[i]*restSum;
+            total+=arr[i]*restSum; // 101 * 500,000 의 합 
         }
         System.out.println(total);
     }
