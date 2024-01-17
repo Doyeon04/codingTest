@@ -9,21 +9,21 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[n];
+        int sum=0;
         for(int i=0; i<n; i++){
             arr[i] = Integer.parseInt(st.nextToken());
+            sum+=arr[i];
         }
-
         Arrays.sort(arr);
 
         long total=0;
         for(int i=0; i<n-1; i++){
-            long restSum=0;
-            for(int j=i+1; j<n; j++){
-                restSum+=arr[j];
-            }
-            total+=arr[i]*restSum; // 101 * 500,000 의 합 
+            sum-=arr[i];
+            total+= (long) arr[i] * sum;
         }
         System.out.println(total);
+        // 2 3 4 5
+
     }
 }
 
