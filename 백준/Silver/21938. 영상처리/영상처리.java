@@ -59,9 +59,9 @@ public class Main {
             int nx = x + dx[i];
             int ny = y + dy[i];
 
-            if(nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+            if(nx < 0 || nx >= m || ny < 0 || ny >= n || screen[ny][nx]!=255 || visit[ny][nx]) continue;
 
-            if(screen[ny][nx] != 0 && !visit[ny][nx]) dfs(ny, nx);
+            dfs(ny, nx);
         }
     }
 
