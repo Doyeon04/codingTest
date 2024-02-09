@@ -8,14 +8,10 @@ class Solution {
             pq.add(scoville[i]); 
         }
     
-        while(pq.size()>1){
+        while(pq.size()>1 && pq.peek() < K){
             int food1 = pq.poll();
             int food2 = pq.poll();
-          
-            if(food1 >= K && food2 >= K){
-                break;
-            }
-            
+         
             answer++; 
             
             int mixed = food1 + food2 * 2; 
