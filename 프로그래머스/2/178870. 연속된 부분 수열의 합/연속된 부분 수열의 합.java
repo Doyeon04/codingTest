@@ -1,28 +1,24 @@
 class Solution {
     public int[] solution(int[] sequence, int k) {
         int[] answer = new int[2];
-        int sum=0, left=0;
+        int sum=0, right = -1, left=0;
         
         int min = sequence.length; 
-    
-        for(int right=0; right<sequence.length; right++){
-            sum+=sequence[right];
-            if(sum == k){
-                if(min > right - left){
+        
+        while(right < sequence.length){
+            if(sum<k){
+                if(++right < sequence.length){
+                    sum += sequence[right];
+                }
+            }else if(sum > k){
+                sum -= sequence[left++];
+            }else{ // 같으면
+                if(right-left < min){
+                    min = right-left;
                     answer[0] = left;
                     answer[1] = right;
-                    min = right-left; 
                 }
-            }
-            while(sum>=k){
-                sum-=sequence[left++];
-                if(sum==k){
-                    if(min > right-left){
-                        answer[0] = left;
-                        answer[1] = right; 
-                        min = right-left; 
-                    }
-                }
+                sum-=sequence[left++]; 
             }
         }
             
