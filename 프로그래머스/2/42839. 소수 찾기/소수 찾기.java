@@ -1,34 +1,29 @@
 import java.util.*; 
 
 class Solution {
-    static int[] nums; 
     static boolean[] visit; 
     static int[] arr; 
     static Set<Integer> set = new HashSet<>(); 
     public int solution(String numbers) {
         int len = numbers.length(); 
-        nums = new int[len];
         visit = new boolean[len];
        
-        for(int i=0; i<len; i++){
-            nums[i] = numbers.charAt(i)-'0'; 
-        }
         for(int i=1; i<=len; i++){
             arr = new int[i];
-            dfs(0, i, arr); 
+            dfs(0, i, arr, numbers); 
         }
         return set.size();
     }
-    static void dfs(int cnt, int len, int[] arr){
+    static void dfs(int cnt, int len, int[] arr, String numbers){
         if(cnt==len){
             addPrime(arr);
             return;
         }
-        for(int i=0; i<nums.length; i++){
+        for(int i=0; i<numbers.length(); i++){
             if(visit[i]) continue;
             visit[i] = true;
-            arr[cnt] = nums[i];
-            dfs(cnt+1, len, arr);
+            arr[cnt] = numbers.charAt(i)-'0'; 
+            dfs(cnt+1, len, arr, numbers);
             visit[i] = false; 
             
         }
