@@ -1,37 +1,19 @@
 import java.util.*; 
 
 class Solution {
+    static int INF = Integer.MAX_VALUE; 
     public int solution(int x, int y, int n) {
-        int answer = 0;
-    
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{x, 0}); 
-        
-        boolean[] visit = new boolean[y+1];
-        
-        while(!q.isEmpty()){
-            int[] poll = q.poll();
-            int now = poll[0];
-            int cnt = poll[1];
-            
-            if(now==y){  
-                return cnt; 
-            }
-            
-            if(now + n <= y && !visit[now+n]) {
-                q.offer(new int[]{now + n, cnt+1});
-                visit[now+n] = true;
-            }
-            if(now * 2 <= y && !visit[now*2]) {
-                q.offer(new int[]{now * 2, cnt+1});
-                visit[now * 2 ] = true; 
-            }
-            if(now * 3 <= y && !visit[now*3]) {
-                q.offer(new int[]{now * 3, cnt+1});
-                visit[now * 3] = true; 
-            }
+        int[] dp = new int[y+1];
+        Arrays.fill(dp, INF); 
+        dp[x] = 0; 
+        for(int i=x; i<=y; i++){
+            if(dp[i]==INF) continue; 
+            if(i+n <= y) dp[i+n] = Math.min(dp[i+n], dp[i] + 1);
+            if(i*2 <= y) dp[i*2] = Math.min(dp[i*2], dp[i] + 1); 
+            if(i*3 <= y) dp[i*3] = Math.min(dp[i*3], dp[i] + 1); 
         }
         
-        return -1;
+        if(dp[y] == INF) return -1;
+        else return dp[y];
     }
 }
