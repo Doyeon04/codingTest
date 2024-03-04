@@ -4,27 +4,21 @@ class Solution
     {
         int n = board.length; 
         int m = board[0].length; 
-        int[][] area = new int[n+1][m+1];
+        int maxLen=0; 
         
-        int max=0; 
-        for(int i=1; i<=n; i++){
-            for(int j=1; j<=m; j++){
-                if(board[i-1][j-1]!=0){
-                    int min = Math.min(Math.min(area[i][j-1], area[i-1][j]), area[i-1][j-1]); 
-                    area[i][j] = min+1; 
-                    max = Math.max(max, area[i][j]); 
-                }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(board[i][j]==0) continue; 
+              
+                int up = (i-1>=0) ? board[i-1][j] : 0;
+                int left = (j-1>=0) ? board[i][j-1] : 0; 
+                int diagonal = (i-1 >= 0 && j-1 >= 0) ? board[i-1][j-1] : 0; 
+                
+                board[i][j] = Math.min(Math.min(up, left), diagonal)+1;
+                maxLen = Math.max(maxLen, board[i][j]); 
             }
         }
         
-        return max * max;
+        return maxLen * maxLen;
     }
 }
-
-/*
-0 1 1 0 0 
-0 1 1 0 0 
-0 0 1 1 1
-0 0 1 1 1
-0 0 1 1 1
-*/
