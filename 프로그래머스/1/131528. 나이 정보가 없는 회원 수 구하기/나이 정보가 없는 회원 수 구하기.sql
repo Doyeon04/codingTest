@@ -1,0 +1,9 @@
+-- 코드를 입력하세요
+# SELECT COUNT(*) AS USERS
+# FROM USER_INFO
+# WHERE AGE IS NULL
+
+SELECT COUNT(*) - COUNT(AGE) AS USERS
+FROM USER_INFO
+# COUNT(A) : Null을 제외한 튜플의 수 
+
