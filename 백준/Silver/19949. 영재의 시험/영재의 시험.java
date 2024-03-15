@@ -5,46 +5,32 @@ import java.util.*;
 
 public class Main {
     static int[] answers = new int[10];
-    static int answer=0;
-    static int[] nums = new int[10];
+    static int answer = 0;
+    static int[] marks = new int[10];
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i=0; i<10; i++){
+        for (int i = 0; i < 10; i++) {
             answers[i] = Integer.parseInt(st.nextToken());
         }
-        dfs( 0);
+        dfs(0, 0);
         System.out.println(answer);
     }
-    static void dfs(int len){
-        if(len == 10){
-            StringBuilder sb = new StringBuilder();
-            for (int num : nums) {
-                sb.append(num);
-            }
-            String s = sb.toString();
-            if(s.contains("111")) return;
-            if(s.contains("222")) return;
-            if(s.contains("333")) return;
-            if(s.contains("444")) return;
-            if(s.contains("555")) return;
 
-
-            int score=0;
-            for(int i=0; i<10; i++){
-                if(s.charAt(i)-'0' == answers[i]){
-                    score++;
-                }
-            }
-            if(score >= 5){
-                answer++;
-            }
+    static void dfs(int depth, int score) {
+        if (depth == 10) {
+            if (score >= 5) answer++;
             return;
         }
 
-        for(int i=1; i<=5; i++){
-            nums[len] = i;
-            dfs(len+1);
+        for (int i = 1; i <= 5; i++) {
+            if (depth >= 2 && (marks[depth - 1] == marks[depth - 2])) {
+                if (marks[depth - 1] == i) continue;
+            }
+            marks[depth] = i;
+            if (i == answers[depth]) dfs(depth + 1, score + 1);
+            else dfs(depth + 1, score);
         }
     }
 
