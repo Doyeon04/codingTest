@@ -5,57 +5,48 @@ import java.util.*;
 
 public class Main {
     static int n;
-    static int[][] colors;
-    static int[] gomColor = new int[3];
-    static int[] pickColors;
-    static int answer = Integer.MAX_VALUE;
+    static int[] R, G, B, gom;
+    static int min = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-        colors = new int[n][3];
+        R = new int[n];
+        G = new int[n];
+        B = new int[n];
 
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < 3; j++) {
-                colors[i][j] = Integer.parseInt(st.nextToken());
-            }
+            R[i] = Integer.parseInt(st.nextToken());
+            G[i] = Integer.parseInt(st.nextToken());
+            B[i] = Integer.parseInt(st.nextToken());
         }
+        gom = new int[3];
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < 3; i++) {
-            gomColor[i] = Integer.parseInt(st.nextToken());
+            gom[i] = Integer.parseInt(st.nextToken());
         }
-        for (int i = 2; i <= 7; i++) { // 1개 ~ 7개의 물감을 뽑는 경우의 수
-            pickColors = new int[i];
-            dfs(i, 0, 0);
+        int len = 0;
+        if (n <= 7) len = n;
+        else len = 7;
+
+        for (int i = 2; i <= len; i++) {
+            dfs(0, i, 0, 0, 0, 0);
         }
-        System.out.println(answer);
+        System.out.println(min);
     }
 
-    static void dfs(int totalLen, int curLen, int start) {
-        if (totalLen == curLen) {
-            int[] newColor = new int[3];
-            for (int pickColor : pickColors) {
-                for (int i = 0; i < 3; i++) {
-                    newColor[i] += colors[pickColor][i];
-                }
-            }
-            for (int i = 0; i < 3; i++) {
-                newColor[i] /= totalLen;
-            }
-            int diff = 0;
-            for (int i = 0; i < 3; i++) {
-                diff += Math.abs(newColor[i] - gomColor[i]);
-            }
-            answer = Math.min(answer, diff);
+    static void dfs(int count, int totalLen, int start, int r, int g, int b) {
+        if (count == totalLen) {
+            r /= totalLen;
+            g /= totalLen;
+            b /= totalLen;
+            min = Math.min(min, Math.abs(r - gom[0]) + Math.abs(g - gom[1]) + Math.abs(b - gom[2]));
             return;
         }
-
         for (int i = start; i < n; i++) {
-            pickColors[curLen] = i;
-            dfs(totalLen, curLen + 1, i + 1);
+            dfs(count + 1, totalLen, i + 1, r + R[i], g + G[i], b + B[i]);
         }
-
     }
 
 }
