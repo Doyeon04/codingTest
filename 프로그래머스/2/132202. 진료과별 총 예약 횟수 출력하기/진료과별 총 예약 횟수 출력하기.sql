@@ -14,4 +14,3 @@ having (
     count (distinct APNT_NO)
 )
 order by count (distinct APNT_NO), MCDP_CD;
-
