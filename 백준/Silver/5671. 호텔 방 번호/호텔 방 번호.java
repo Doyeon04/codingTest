@@ -21,23 +21,23 @@ public class Main{
             int answer=0;
 
             for(int i=n; i<=m; i++){
-                int[] nums = new int[10];
-                String room = String.valueOf(i);
-                boolean possible = true;
-
-                for(char c : room.toCharArray()){
-                    if(nums[c-'0'] > 0) {
-                        possible = false;
-                        break;
-                    }
-                    nums[c-'0']++;
-                }
-                if(possible) answer++;
+                if(check(i)) answer++;
             }
             sb.append(answer).append("\n");
         }
         System.out.println(sb);
+    }
 
+    private static boolean check(int i) {
+        int[] nums = new int[10];
+        String room = String.valueOf(i);
 
+        for(char c : room.toCharArray()){
+            if(nums[c-'0'] > 0) {
+               return false;
+            }
+            nums[c-'0']++;
+        }
+        return true;
     }
 }
