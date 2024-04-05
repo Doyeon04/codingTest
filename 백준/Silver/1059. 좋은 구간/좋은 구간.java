@@ -21,27 +21,27 @@ public class Main {
         // 1000 * 1000 = 1000,000
         Arrays.sort(arr);
         long answer = 0;
-
-        if (1 <= n && n <=arr[0]-1) {
-            for (int k = 1; k < arr[0] - 1; k++) {
-                for (int j = 2; j <= arr[0]-1; j++) {
-                    if (k == j) continue;
-                    if (k <= n && n <= j) answer++;
-                }
-            }
+        if(1 <= n && n <= arr[0]-1){
+            answer+= findGoodRange(1, arr[0]-1, n);
         }
-
 
         for (int i = 0; i < L - 1; i++) {
             if (arr[i] + 1 <= n && arr[i + 1] - 1 >= n) {
-                for (int j = arr[i] + 1; j < arr[i + 1] - 1; j++) {
-                    for (int k = arr[i] + 2; k < arr[i + 1]; k++) {
-                        if (j == k) continue;
-                        if (j <= n && n <= k) answer++;
-                    }
-                }
+                answer += findGoodRange(arr[i]+1, arr[i+1]-1, n);
             }
         }
         System.out.println(answer);
     }
+
+    static int findGoodRange(int a, int b, int n){
+        int cnt=0;
+        for (int j = a; j <= b-1; j++) {
+            for (int k = a+1; k <= b; k++) {
+                if (j == k) continue;
+                if (j <= n && n <= k) cnt++;
+            }
+        }
+        return cnt;
+    }
 }
+
