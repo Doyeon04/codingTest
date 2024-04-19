@@ -1,6 +1,6 @@
 # [level 2] ROOT 아이템 구하기 - 273710 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/273710) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/273710#qna) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 19일 15:43:14
+2024년 04월 19일 15:44:45
 
 ### 문제 설명
 

@@ -1,6 +1,15 @@
 -- 코드를 작성해주세요
+# select ITEM_ID, ITEM_NAME
+# from ITEM_TREE
+# join ITEM_INFO
+# using(ITEM_ID)
+# where PARENT_ITEM_ID is null;
+
 select ITEM_ID, ITEM_NAME
-from ITEM_TREE
-join ITEM_INFO
-using(ITEM_ID)
-where PARENT_ITEM_ID is null; 
+from ITEM_INFO
+where ITEM_ID
+in(
+    select ITEM_ID
+    from ITEM_TREE
+    where PARENT_ITEM_ID is null
+)
