@@ -10,21 +10,26 @@ public class Main {
         String str = br.readLine();
         int[] nums = new int[10];
 
-        for(int i=0; i<str.length(); i++){
-            int num = str.charAt(i)-'0';
+        for (int i = 0; i < str.length(); i++) {
+            int num = str.charAt(i) - '0';
+            if (num == 9) {
+                num = 6;
+            }
             nums[num]++;
         }
-        int answer=0;
-        int tmp = 0; 
-        
-        if((nums[9]+nums[6]) % 2 != 0) tmp = (nums[9] + nums[6])/2 + 1; 
-        else tmp = (nums[9]+nums[6])/2; 
-        
-        nums[9] = tmp;
-        nums[6] = tmp;
-        for(int i=0; i<nums.length; i++){
+
+        int sixCnt = nums[6] / 2;
+        if (nums[6] % 2 != 0) {
+            sixCnt++;
+        }
+        nums[6] = sixCnt;
+
+        int answer = 0;
+        for (int i = 0; i < nums.length; i++) {
             answer = Math.max(answer, nums[i]);
         }
+
         System.out.println(answer);
     }
 }
+// 99966
