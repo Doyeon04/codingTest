@@ -10,27 +10,27 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         long a = Long.parseLong(st.nextToken());
         long b = Long.parseLong(st.nextToken());
-        long[] arr = new long[10000001];
+        boolean[] isPrime = new boolean[10000001];
 
-        for (int i = 2; i < arr.length; i++) {
-            arr[i] = i;
+        for (int i = 2; i < isPrime.length; i++) {
+            isPrime[i] = true;
         }
 
-        for (int i = 2; i <= Math.sqrt(arr.length); i++) {
-            if (arr[i] == 0) {
+        for (int i = 2; i <= Math.sqrt(isPrime.length); i++) {
+            if (!isPrime[i]) {
                 continue;
             }
-            for (int j = i * i; j < arr.length; j = j + i) {
-                arr[j] = 0;
+            for (int j = i * i; j < isPrime.length; j = j + i) {
+                isPrime[j] = false;
             }
         }
         int count = 0;
-        for (int i = 2; i < arr.length; i++) {
-            if (arr[i] != 0) { // 소수면
-                long num = arr[i];
+        for (int i = 2; i < isPrime.length; i++) {
+            if (isPrime[i]) { // 소수면
+                long num = i;
 
-                while (num <= b / arr[i]) {
-                    num = num * arr[i];
+                while (num <= b / i) {
+                    num *= i;
                     if (num >= a)
                         count++;
                 }
