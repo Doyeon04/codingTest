@@ -5,15 +5,16 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int blueCount=0, whiteCount=0;
+    static int blueCount = 0, whiteCount = 0;
     static int[][] arr;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         arr = new int[n][n];
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            for(int j=0; j<n; j++){
+            for (int j = 0; j < n; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken());
             }
         }
@@ -22,33 +23,35 @@ public class Main {
         System.out.println(blueCount);
 
     }
-    static void count(int x, int y, int len){
-        if(len==0){
+
+    static void count(int x, int y, int len) {
+
+        if (isAllSameColor(x, y, len)) {
+            if (arr[x][y] == 0) {
+                whiteCount++;
+            } else {
+                blueCount++;
+            }
             return;
         }
-        boolean allBlue = true;
-        boolean allWhite = true;
-        for(int i=x; i<x+len; i++){
-            for(int j=y; j<y+len; j++){
-                if(arr[i][j] == 0){
-                    allBlue = false;
-                }
-                if(arr[i][j]== 1){
-                    allWhite = false;
+        
+        int newLen = len / 2;
+
+        count(x, y, newLen);
+        count(x, y + newLen, newLen);
+        count(x + newLen, y, newLen);
+        count(x + newLen, y + newLen, newLen);
+    }
+
+    static boolean isAllSameColor(int x, int y, int len) {
+        int val = arr[x][y];
+        for (int i = x; i < x + len; i++) {
+            for (int j = y; j < y + len; j++) {
+                if (arr[i][j] != val) {
+                    return false;
                 }
             }
         }
-
-        int newLen = len/2;
-        if(!allWhite && !allBlue){
-            count(x, y, newLen);
-            count(x, y+newLen, newLen);
-            count(x+newLen, y, newLen);
-            count(x+newLen, y+newLen, newLen);
-        }else if(allBlue){
-            blueCount++;
-        }else {
-            whiteCount++;
-        }
+        return true;
     }
 }
