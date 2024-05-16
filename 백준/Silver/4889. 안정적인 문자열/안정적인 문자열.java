@@ -12,30 +12,20 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         while ((str = br.readLine()).charAt(0) != '-') {
             Stack<Character> stack = new Stack<>();
+            int cnt=0;
             for (char c : str.toCharArray()) {
-                if (c == '}' && !stack.isEmpty() && stack.peek() == '{') {
-                    stack.pop();
-                } else {
-                    stack.push(c);
+                if(c=='{') stack.push(c);
+                else{
+                    if(stack.isEmpty()){
+                        stack.push('{');
+                        cnt++;
+                    }else stack.pop();
                 }
             }
-            int right = 0, left = 0;
-            while (!stack.isEmpty()) {
-                char c = stack.pop();
-                if (c == '}') {
-                    right++;
-                } else {
-                    left++;
-                }
+            if(!stack.isEmpty()){
+                cnt+=stack.size()/2;
             }
-
-            int answer = 0;
-            if (right % 2 == 0) {
-                answer = right / 2 + left / 2;
-            } else {
-                answer = (right - 1) / 2 + (left - 1) / 2 + 2;
-            }
-            sb.append(idx).append(". ").append(answer).append("\n");
+            sb.append(idx).append(". ").append(cnt).append("\n");
             idx++;
         }
         System.out.println(sb);
